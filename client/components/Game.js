@@ -1,15 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { fetchSongs, createSong } from '../store/allSongsStore';
-
-// function Game() {
-//   return (
-//     <div>Game</div>
-//   )
-// }
-
-// export default Game
-
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSongs, createSong, getSongPlays } from '../store/allSongsStore';
@@ -21,57 +9,71 @@ function Game() {
   const [songName, setSongName] = useState('');
   const [matchingSongs, setMatchingSongs] = useState([]);
   const [songPlays, setSongPlays] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     dispatch(fetchSongs()); // Dispatch the fetchSongs action to fetch the songs from the store
   }, [dispatch]);
 
-  const handleArtistChange = (event) => {
-    setCurrentArtist(event.target.value);
-    setMatchingSongs(getMatchingSongs(event.target.value));
+  useEffect(() => {
+    if (songs.length > 0) {
+      generateRandomArtist(); // Generate a random artist if songs are available
+    }
+  }, [songs]);
+
+  const generateRandomArtist = () => {
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    setCurrentArtist(songs[randomIndex].artist);
+    setMatchingSongs(getMatchingSongs(songs[randomIndex].artist));
   };
 
   const getMatchingSongs = (artist) => {
-    return songs.filter((song) => song.artist.toLowerCase().includes(artist.toLowerCase()));
+    return songs.filter((song) => song.artist.toLowerCase() === artist.toLowerCase());
   };
 
-  const handleSongChange = (event) => {
+  const handleSongSelect = (event) => {
     setSongName(event.target.value);
-    setMatchingSongs(getMatchingSongs(currentArtist));
   };
 
   const handleSongSubmit = (event) => {
     event.preventDefault();
     const song = songs.find((s) => s.artist.toLowerCase() === currentArtist.toLowerCase() && s.name.toLowerCase() === songName.toLowerCase());
-    if (song) {
-      dispatch(getSongPlays(song.id))
-        .then((plays) => setSongPlays(plays))
-        .catch((error) => console.error('Error fetching song plays:', error));
-    } else {
-      setSongPlays(null);
-    }
+    setSongPlays(song.plays)
+    setIsSubmitted(true);
+
   };
 
   return (
     <div>
       <h1>Game</h1>
-      <div>
-        <label>ARTIST:</label>
-        <input type="text" value={currentArtist} onChange={handleArtistChange} />
-      </div>
-      <div>
-        <label>Name Song:</label>
-        <input type="text" value={songName} onChange={handleSongChange} />
-      </div>
-      <ul>
-        {matchingSongs.map((song) => (
-          <li key={song.id}>
-            {song.name} - {song.artist}
-          </li>
-        ))}
-      </ul>
-      {songPlays !== null && <p>Plays: {songPlays}</p>}
-      <button onClick={handleSongSubmit}>Submit</button>
+      {!isSubmitted ? (
+        <form onSubmit={handleSongSubmit}>
+          <div>
+            <label>ARTIST:</label>
+            <span>{currentArtist}</span>
+          </div>
+          <div>
+            <label>Name Song:</label>
+            <select value={songName} onChange={handleSongSelect}>
+              <option value="">Select a Song</option>
+              {matchingSongs.map((song) => (
+                <option key={song.id} value={song.name}>
+                  {song.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <div>
+          {songPlays !== null ? (
+            <p>That song has {songPlays} plays!!</p>
+          ) : (
+            <p>No plays found for the selected song.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
