@@ -13,6 +13,7 @@ function Game() {
   const [scoreboard, setScoreboard] = useState([]);
   const [totalPlays, setTotalPlays] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     dispatch(fetchSongs()); // Dispatch the fetchSongs action to fetch the songs from the store
@@ -23,6 +24,12 @@ function Game() {
       generateRandomArtist(); // Generate a random artist if songs are available
     }
   }, [songs]);
+
+  useEffect(() => {
+    if (totalPlays > highScore) {
+      setHighScore(totalPlays);
+    }
+  }, [totalPlays, highScore]);
 
   const generateRandomArtist = () => {
     const randomIndex = Math.floor(Math.random() * songs.length);
@@ -76,6 +83,9 @@ function Game() {
   return (
     <div>
       <h1>Game</h1>
+      <div>
+        <h2>High Score: {formatNumberWithCommas(highScore)}</h2>
+      </div>
       <div>
         <h2>Scoreboard</h2>
         {scoreboard.length > 0 ? (
