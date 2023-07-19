@@ -12,6 +12,7 @@ function Game() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [scoreboard, setScoreboard] = useState([]);
   const [totalPlays, setTotalPlays] = useState(0);
+  const [isGameCompleted, setIsGameCompleted] = useState(false);
 
   useEffect(() => {
     dispatch(fetchSongs()); // Dispatch the fetchSongs action to fetch the songs from the store
@@ -48,6 +49,12 @@ function Game() {
     setIsSubmitted(true);
     setScoreboard([...scoreboard, { artist: currentArtist, songName, songPlays: song?.plays }]);
     setTotalPlays(totalPlays + song?.plays);
+
+    if (scoreboard.length === 4) {
+      setIsGameCompleted(true);
+    } else {
+      generateRandomArtist();
+    }
   };
 
   const handleNextArtist = () => {
@@ -56,6 +63,13 @@ function Game() {
     setMatchingSongs([]);
     setSongPlays('');
     setIsSubmitted(false);
+    generateRandomArtist();
+  };
+
+  const startGameAgain = () => {
+    setIsGameCompleted(false);
+    setScoreboard([]);
+    setTotalPlays(0);
     generateRandomArtist();
   };
 
@@ -74,7 +88,12 @@ function Game() {
                 <p>Plays: {formatNumberWithCommas(song.songPlays)}</p>
               </div>
             ))}
-            <p>Total Plays: {formatNumberWithCommas(totalPlays)}</p>
+            {isGameCompleted && (
+              <div>
+                <p>TOTAL PLAYS: {formatNumberWithCommas(totalPlays)}</p>
+                <button onClick={startGameAgain}>Try Again</button>
+              </div>
+            )}
           </div>
         ) : (
           <p>No songs selected yet</p>
@@ -103,7 +122,7 @@ function Game() {
         <div>
           {songPlays !== null ? (
             <div>
-              {scoreboard.length < 5 && (
+              {!isGameCompleted && (
                 <button onClick={handleNextArtist}>Next Artist</button>
               )}
             </div>
