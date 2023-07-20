@@ -85,27 +85,34 @@ function Game() {
   };
 
   return (
-    <div>
-      <h1>Game</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Game</h1>
       <div>
-        <h2>High Score: {formatNumberWithCommas(highScore)}</h2>
+        <h2 className="text-lg font-bold mb-2">High Score: {formatNumberWithCommas(highScore)}</h2>
       </div>
       <div>
-        <h2>Scoreboard</h2>
+        <h2 className="text-xl font-bold mb-2">Scoreboard</h2>
         {scoreboard.length > 0 ? (
           <div>
             {scoreboard.map((song, index) => (
-              <div key={index}>
-                <h3>Song {index + 1}</h3>
+              <div key={index} className="mb-4">
+                <h3 className="text-lg font-bold">Song {index + 1}</h3>
                 <p>Artist: {song.artist}</p>
                 <p>Song Name: {song.songName}</p>
                 <p>Plays: {formatNumberWithCommas(song.songPlays)}</p>
               </div>
             ))}
             {isGameCompleted && (
-              <div>
-                <p>TOTAL PLAYS: {formatNumberWithCommas(totalPlays)}</p>
-                <button onClick={startGameAgain}>Try Again</button>
+              <div className="mt-4">
+                <p className="text-xl font-bold">
+                  TOTAL PLAYS: {formatNumberWithCommas(totalPlays)}
+                </p>
+                <button
+                  className="bg-blue-500 text-white font-bold py-2 px-4 mt-4 rounded"
+                  onClick={startGameAgain}
+                >
+                  Try Again
+                </button>
               </div>
             )}
           </div>
@@ -114,32 +121,46 @@ function Game() {
         )}
       </div>
       {!isSubmitted ? (
-        <form onSubmit={handleSongSubmit}>
-          <div>
-            <label>ARTIST:</label>
-            <span>{currentArtist}</span>
+        <form onSubmit={handleSongSubmit} className="mt-4">
+          <div className="flex items-center mb-2">
+            <label className="mr-2">ARTIST:</label>
+            <span className="font-bold">{currentArtist}</span>
           </div>
-          <div>
-            <label>Name Song:</label>
-            <select value={songName} onChange={handleSongSelect}>
+          <div className="flex items-center mb-2">
+            <label className="mr-2">Name Song:</label>
+            <select
+              value={songName}
+              onChange={handleSongSelect}
+              className="border border-gray-400 rounded px-2 py-1"
+            >
               <option value="">Select a Song</option>
               {matchingSongs
-  .filter((song, index, self) => self.findIndex((s) => s.name === song.name) === index) // Filter out duplicate songs by name
-  .map((song) => (
-    <option key={song.id} value={song.name}>
-      {song.name}
-    </option>
-  ))}
+                .filter((song, index, self) => self.findIndex((s) => s.name === song.name) === index) // Filter out duplicate songs by name
+                .map((song) => (
+                  <option key={song.id} value={song.name}>
+                    {song.name}
+                  </option>
+                ))}
             </select>
           </div>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          >
+            Submit
+          </button>
         </form>
       ) : (
-        <div>
+        <div className="mt-4">
           {songPlays !== null ? (
             <div>
               {!isGameCompleted && (
-                <button onClick={handleNextArtist}>Next Artist</button>
+                <button
+                  className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleNextArtist}
+                >
+                  Next Artist
+                </button>
               )}
             </div>
           ) : (
