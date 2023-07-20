@@ -31,6 +31,10 @@ function Game() {
     }
   }, [totalPlays, highScore]);
 
+  const handleCloseModal = () => {
+    setShowHighScoreModal(false);
+  };
+
   const generateRandomArtist = () => {
     const randomIndex = Math.floor(Math.random() * songs.length);
     setCurrentArtist(songs[randomIndex].artist);
@@ -119,11 +123,13 @@ function Game() {
             <label>Name Song:</label>
             <select value={songName} onChange={handleSongSelect}>
               <option value="">Select a Song</option>
-              {matchingSongs.map((song) => (
-                <option key={song.id} value={song.name}>
-                  {song.name}
-                </option>
-              ))}
+              {matchingSongs
+  .filter((song, index, self) => self.findIndex((s) => s.name === song.name) === index) // Filter out duplicate songs by name
+  .map((song) => (
+    <option key={song.id} value={song.name}>
+      {song.name}
+    </option>
+  ))}
             </select>
           </div>
           <button type="submit">Submit</button>
