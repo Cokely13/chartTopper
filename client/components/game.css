@@ -1,0 +1,102 @@
+src/game.css
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1rem;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #1a56db;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1441b4;
+}
+
+button:disabled {
+  background-color: #bfbfbf;
+  cursor: not-allowed;
+}
+
+.form-container {
+  margin-top: 1rem;
+}
+
+.form-container label {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-container select {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.scoreboard-container {
+  margin-top: 2rem;
+}
+
+.scoreboard-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.scoreboard-item h3 {
+  font-size: 1.25rem;
+}
+
+.scoreboard-item p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.total-plays {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 2rem;
+}
