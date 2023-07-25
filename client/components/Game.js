@@ -86,7 +86,7 @@ function Game() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Game</h1>
+      <h1 className="text-3xl font-bold mb-4 underline">Game</h1>
       <div>
         <h2 className="text-lg font-bold mb-2">High Score: {formatNumberWithCommas(highScore)}</h2>
       </div>
