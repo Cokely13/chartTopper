@@ -17,8 +17,8 @@ async function seed() {
   ]);
 
   const API_KEY = '6e56a81fd7f7f0fb08932517fef4fc86';
-  const TOTAL_ARTISTS = 100;
-  const TOP_SONGS_LIMIT = 20;
+  const TOTAL_ARTISTS = 1000;
+  const TOP_SONGS_LIMIT = 200;
 
   for (let page = 1; page <= TOTAL_ARTISTS; page++) {
     const url = `http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${API_KEY}&format=json&limit=${TOP_SONGS_LIMIT}&page=${page}`;

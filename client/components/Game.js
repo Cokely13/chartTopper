@@ -116,7 +116,9 @@ function Game() {
           matchingSongs={matchingSongs}
           handleSongSelect={handleSongSelect}
           handleSongSubmit={handleSongSubmit}
+          totalPlays={totalPlays}
           songPlays={songPlays}
+          highScore={highScore}
           isGameCompleted={isGameCompleted}
           handleNextArtist={handleNextArtist}
           formatNumberWithCommas={formatNumberWithCommas}

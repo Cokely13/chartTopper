@@ -1,7 +1,7 @@
 // SongSelector.js
 import React from 'react';
 
-const SongSelector = ({ isSubmitted, currentArtist, songName, matchingSongs, handleSongSelect, handleSongSubmit, songPlays, isGameCompleted, handleNextArtist, formatNumberWithCommas }) => {
+const SongSelector = ({ isSubmitted, currentArtist, songName, matchingSongs, handleSongSelect, handleSongSubmit, songPlays, isGameCompleted, handleNextArtist, formatNumberWithCommas, totalPlays, highScore }) => {
   return (
     <div className="song-selector-container">
       {!isSubmitted ? (
@@ -55,6 +55,11 @@ const SongSelector = ({ isSubmitted, currentArtist, songName, matchingSongs, han
           )}
         </div>
       )}
+       {isGameCompleted && (
+            <div className="result">
+              <h2>{totalPlays === highScore ? "Congrats on the High Score!" : "Sorry you Failed!"}</h2>
+            </div>
+          )}
     </div>
   );
 };
