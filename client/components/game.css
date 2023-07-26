@@ -1,5 +1,3 @@
-src/game.css
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f9fafb;
@@ -7,13 +5,66 @@ body {
   padding: 0;
 }
 
-.container {
+.high{
   max-width: 800px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-color: #1441b4;
+  border-style: double;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.next{
+  text-align: center;
+  margin-top: 40%;
+  margin-bottom: 40%;
+}
+
+.try{
+  text-align: center;
+}
+
+.mid{
+  text-align: center;
+}
+
+.scoreboard{
+  text-align: center;
+}
+
+.container {
+  max-width: 1600px;
   margin: 0 auto;
   padding: 1rem;
   background-color: #ffffff;
+  border-color: #1441b4;
+  border-style: double;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-gap: 1rem; /* Gap between grid items */
+}
+
+.high-score {
+  grid-column: span 2; /* Span both columns */
+  text-align: center;
+  padding: 1rem;
+  border: 2px solid #1a56db;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.scoreboard-container {
+  grid-column: 1; /* Left column */
+}
+
+.form-container {
+  grid-column: 2; /* Right column */
 }
 
 h1 {
@@ -56,10 +107,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.form-container {
-  margin-top: 1rem;
-}
-
 .form-container label {
   display: block;
   font-size: 1.25rem;
@@ -73,10 +120,6 @@ button:disabled {
   border: 1px solid #d1d5db;
   border-radius: 4px;
   width: 100%;
-}
-
-.scoreboard-container {
-  margin-top: 2rem;
 }
 
 .scoreboard-item {
@@ -99,4 +142,39 @@ button:disabled {
   font-size: 1.25rem;
   font-weight: bold;
   margin-top: 2rem;
+}
+
+/* .container {
+  display: flex;
+  justify-content: space-between; /* Add space between the two columns */
+  /* border: 4px solid darkblue;
+  padding: 20px;  */
+/* }  */
+
+/* Add a margin between the two columns */
+.scoreboard {
+  margin-right: 30px;
+}
+
+/* Style the left container */
+.scoreboard-container {
+  flex: 1; /* Let it take up the available space in the flex container */
+}
+
+/* Style the right container */
+.song-selector-container {
+  flex: 1; /* Let it take up the available space in the flex container */
+}
+
+/* Add a dark blue border around each container */
+.scoreboard-container,
+.song-selector-container {
+  border: 6px solid darkblue;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Add margin to the bottom of each scoreboard item */
+.mb-4 {
+  margin-bottom: 1rem;
 }
