@@ -50,7 +50,7 @@ function Game() {
   };
 
   const formatNumberWithCommas = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return number ?  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','): '0'
   };
 
   const handleSongSelect = (event) => {
@@ -71,7 +71,7 @@ function Game() {
     setSongPlays(song?.plays);
     setIsSubmitted(true);
     setScoreboard([...scoreboard, { artist: currentArtist, songName, songPlays: song?.plays }]);
-    setTotalPlays(totalPlays + song?.plays);
+    setTotalPlays(totalPlays + (song? song?.plays : 0));
 
     if (scoreboard.length === 4) {
       setIsGameCompleted(true);
@@ -113,6 +113,7 @@ function Game() {
           isSubmitted={isSubmitted}
           currentArtist={currentArtist}
           songName={songName}
+          setSongName={setSongName}
           matchingSongs={matchingSongs}
           handleSongSelect={handleSongSelect}
           handleSongSubmit={handleSongSubmit}
