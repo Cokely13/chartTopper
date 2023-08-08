@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSubmit, songPlays, isGameCompleted, handleNextArtist, formatNumberWithCommas, totalPlays, highScore, songName, setSongName }) => {
+const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSubmit, songPlays, isGameCompleted, handleNextArtist, formatNumberWithCommas, totalPlays, highScore, songName, setSongName, setSkipped, skipped }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestedSongs, setSuggestedSongs] = useState([]);
+  const [showSkipConfirmation, setShowSkipConfirmation] = useState(false);
 
   const hasAtLeastThreeMatchingLetters = (input, songName) => {
     if (input.length < 4) return false;
@@ -45,10 +46,10 @@ const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSub
 
   const handleSkip = (event) => {
     event.preventDefault();
-    let skip = { artist: currentArtist, songName: 'SKIPPED', songPlays: 0 }
-    handleNextArtist();
-    handleSubmit(skip)
+    setSkipped(true)
+    setShowSkipConfirmation(true); // Show the confirmation modal
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -58,6 +59,18 @@ const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSub
   const handleSuggestionClick = (selectedSongName) => {
     setSongName(selectedSongName);
     setShowSuggestions(false);
+  };
+
+  const confirmSkip = (event) => {
+    setShowSkipConfirmation(false); // Hide the confirmation modal
+    console.log("skipped", skipped)
+    handleSongSubmit(event); // If you want to proceed with song submission after skipping
+    // handleNextArtist(); // If you want to proceed to the next artist after skipping
+  };
+
+  const cancelSkip = () => {
+    setSkipped(false);
+    setShowSkipConfirmation(false); // Hide the confirmation modal
   };
 
   return (
@@ -99,7 +112,7 @@ const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSub
             </button>
           </div>
           <div>
-          <button type="button" className="skip" onClick={handleSkip} >
+          <button type="button" className="skip" onClick={(event) => handleSkip(event)}>
                 Skip
              </button>
         </div>
@@ -127,6 +140,15 @@ const SongSelector = ({ isSubmitted, currentArtist, matchingSongs, handleSongSub
       {isGameCompleted && (
         <div className="result">
           <h2>{totalPlays === highScore ? 'Congrats on the High Score!' : 'Sorry you Failed!'}</h2>
+        </div>
+      )}
+        {showSkipConfirmation && (
+        <div className="skip-confirmation-modal">
+          <p>Are you sure you want to skip?</p>
+          <button onClick={(event) => confirmSkip(event)}>Yes</button>
+          <div>
+          <button onClick={cancelSkip}>No</button>
+          </div>
         </div>
       )}
     </div>

@@ -11,6 +11,7 @@ function Game() {
   const songs = useSelector((state) => state.allSongs);
   const [currentArtist, setCurrentArtist] = useState('');
   const [songName, setSongName] = useState('');
+  const [skipped, setSkipped] = useState(false);
   const [matchingSongs, setMatchingSongs] = useState([]);
   const [songPlays, setSongPlays] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -60,8 +61,22 @@ function Game() {
 
   const handleSongSubmit = (event) => {
     event.preventDefault();
+    console.log("skip!!!", scoreboard.length)
+    console.log("complete!!!", isGameCompleted)
+    if(skipped){
+      setIsSubmitted(true);
+      console.log("skipper!!!", skipped)
+      setTotalPlays(totalPlays + 0);
+    setScoreboard([...scoreboard, { artist: currentArtist, songName: "Skipped", songPlays: 0 }]);
+    if (scoreboard.length === 4) {
+      setIsGameCompleted(true);
+    } else {
+      generateRandomArtist();
+    }
+    }
 
-    if (!songName) {
+    if (!songName && !skipped) {
+      console.log("skipper", skipped)
       // If no song is selected, show an error message or take appropriate action
       alert('Please select a song before submitting.');
       return;
@@ -72,6 +87,7 @@ function Game() {
     setIsSubmitted(true);
     setScoreboard([...scoreboard, { artist: currentArtist, songName, songPlays: song?.plays }]);
     setTotalPlays(totalPlays + (song? song?.plays : 0));
+
 
     if (scoreboard.length === 4) {
       setIsGameCompleted(true);
@@ -86,6 +102,7 @@ function Game() {
     setMatchingSongs([]);
     setSongPlays('');
     setIsSubmitted(false);
+    setSkipped(false)
     generateRandomArtist();
   };
 
@@ -113,6 +130,8 @@ function Game() {
           isSubmitted={isSubmitted}
           currentArtist={currentArtist}
           songName={songName}
+          skipped={skipped}
+          setSkipped={setSkipped}
           setSongName={setSongName}
           matchingSongs={matchingSongs}
           handleSongSelect={handleSongSelect}
