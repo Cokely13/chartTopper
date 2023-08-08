@@ -178,3 +178,110 @@ button:disabled {
 .mb-4 {
   margin-bottom: 1rem;
 }
+
+
+body {
+  background: linear-gradient(to right, #11cb30, #b3d7c03f);
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.container {
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.song-selector-container {
+  margin-top: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mid {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.skip{
+  color: black;
+}
+
+.suggestions {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease;
+}
+
+.suggestions li:hover {
+  background-color: #e0e0e0;
+}
+
+.next {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.high {
+  text-align: center;
+  margin-top: 30px;
+  color: blue;
+  font-size: 24px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.high h2 {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
